@@ -33,4 +33,9 @@ public class ContatoService {
 		findById(obj.getId());
 		return repo.save(obj);
 	}
+	
+	public void delete(Integer id) {
+		findById(id);
+		repo.deleteById(id);
+	}
 }
