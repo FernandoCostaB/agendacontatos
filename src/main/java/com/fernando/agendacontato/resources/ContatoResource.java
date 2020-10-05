@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,7 +26,7 @@ public class ContatoResource {
 	@Autowired
 	private ContatoService service;
 	
-	
+	@CrossOrigin
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<List<ContatoDTO>> findAll() {
 		List<Contato> list = service.findAll();
@@ -33,13 +34,14 @@ public class ContatoResource {
 		return ResponseEntity.ok().body(listDto);
 	}
 	
-	
+	@CrossOrigin
 	@RequestMapping(value="/{id}", method = RequestMethod.GET)
 	public ResponseEntity<Contato> findById(@PathVariable Integer id) {
 			Contato obj = service.findById(id);
 			return ResponseEntity.ok().body(obj);
 	}
 	
+	@CrossOrigin
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<Void> insert(@RequestBody Contato contato){
 		contato = service.insert(contato);
@@ -48,6 +50,7 @@ public class ContatoResource {
 		return ResponseEntity.created(uri).build();
 	}
 	
+	@CrossOrigin
 	@RequestMapping(value="/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<Void> update(@RequestBody Contato contato,@PathVariable Integer id){
 		contato.setId(id);
@@ -55,6 +58,7 @@ public class ContatoResource {
 		return ResponseEntity.noContent().build();
 	}
 	
+	@CrossOrigin
 	@RequestMapping(value="/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<Void> delete(@PathVariable Integer id) {
 		service.delete(id);
