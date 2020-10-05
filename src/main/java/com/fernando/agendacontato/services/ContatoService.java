@@ -23,4 +23,9 @@ public class ContatoService {
 				"Objeto não encontrado!"));
 	}
 	
+	
+	public Contato insert(Contato obj) {
+		obj.setId(null);
+		return repo.save(obj);
+	}
 }
