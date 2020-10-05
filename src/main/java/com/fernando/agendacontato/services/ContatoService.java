@@ -1,5 +1,6 @@
 package com.fernando.agendacontato.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,6 @@ public class ContatoService {
 				"Objeto não encontrado!"));
 	}
 	
-	
 	public Contato insert(Contato obj) {
 		obj.setId(null);
 		return repo.save(obj);
@@ -37,5 +37,9 @@ public class ContatoService {
 	public void delete(Integer id) {
 		findById(id);
 		repo.deleteById(id);
+	}
+	
+	public List<Contato> findAll(){
+		return repo.findAll();
 	}
 }

@@ -1,8 +1,9 @@
 package com.fernando.agendacontato.resources;
 
 import java.net.URI;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.fernando.agendacontato.domain.Contato;
+import com.fernando.agendacontato.dto.ContatoDTO;
 import com.fernando.agendacontato.services.ContatoService;
 
 @RestController
@@ -25,15 +27,10 @@ public class ContatoResource {
 	
 	
 	@RequestMapping(method = RequestMethod.GET)
-	public List<Contato> listar() {
-		Contato cont1 = new Contato(1, "fernando", "masculino", "3237-2451", "costa.fb@hotmail.com");
-		Contato cont2 = new Contato(2, "maria", "feminino", "3237-2451", "maria.fb@hotmail.com");
-		
-		List<Contato> lista = new ArrayList<>();
-		lista.add(cont1);
-		lista.add(cont2);
-		
-		return lista;
+	public ResponseEntity<List<ContatoDTO>> findAll() {
+		List<Contato> list = service.findAll();
+		List<ContatoDTO> listDto = list.stream().map(obj->new ContatoDTO(obj)).collect(Collectors.toList());
+		return ResponseEntity.ok().body(listDto);
 	}
 	
 	
