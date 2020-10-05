@@ -28,4 +28,9 @@ public class ContatoService {
 		obj.setId(null);
 		return repo.save(obj);
 	}
+	
+	public Contato update(Contato obj) {
+		findById(obj.getId());
+		return repo.save(obj);
+	}
 }

@@ -38,7 +38,7 @@ public class ContatoResource {
 	
 	
 	@RequestMapping(value="/{id}", method = RequestMethod.GET)
-	public ResponseEntity<?> findById(@PathVariable Integer id) {
+	public ResponseEntity<Contato> findById(@PathVariable Integer id) {
 			Contato obj = service.findById(id);
 			return ResponseEntity.ok().body(obj);
 	}
@@ -50,5 +50,13 @@ public class ContatoResource {
 				.path("/{id}").buildAndExpand(contato.getId()).toUri();
 		return ResponseEntity.created(uri).build();
 	}
+	
+	@RequestMapping(value="/{id}", method = RequestMethod.PUT)
+	public ResponseEntity<Void> update(@RequestBody Contato contato,@PathVariable Integer id){
+		contato.setId(id);
+		contato = service.update(contato);
+		return ResponseEntity.noContent().build();
+	}
+	
 	
 }
