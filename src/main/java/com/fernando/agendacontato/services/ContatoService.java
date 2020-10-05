@@ -7,6 +7,9 @@ import org.springframework.stereotype.Service;
 
 import com.fernando.agendacontato.domain.Contato;
 import com.fernando.agendacontato.repositories.ContatoRepository;
+import com.fernando.agendacontato.services.exceptions.ObjectNotFoundException;
+
+
 
 @Service
 public class ContatoService {
@@ -16,7 +19,8 @@ public class ContatoService {
 
 	public Contato findById(Integer id) {
 		Optional<Contato> obj = repo.findById(id);
-		return obj.orElse(null);
+		return obj.orElseThrow(() -> new ObjectNotFoundException(
+				"Objeto não encontrado!"));
 	}
 	
 }
